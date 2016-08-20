@@ -1,5 +1,5 @@
 //
-//  HomeModel.swift
+//  ProgrammingLanguageIIModel.swift
 //  ADSLPII
 //
 //  Created by John Lima on 13/08/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum HomeAttributes: String {
+enum ProgrammingLanguageIIAttributes: String {
     case Title = "title"
     case Subtitle = "subtitle"
     case Date = "date"
@@ -17,12 +17,12 @@ enum HomeAttributes: String {
     case File = "file"
 }
 
-enum HomeModelIds: String {
+enum ProgrammingLanguageIIModelIds: String {
     case First = "010110082016"
     case Second = "010210082016"
 }
 
-class HomeModel {
+class ProgrammingLanguageIIModel {
     
     var title: String?
     var subtitle: String?
@@ -45,36 +45,36 @@ class HomeModel {
     }
 }
 
-extension HomeModel {
+extension ProgrammingLanguageIIModel {
     
-    func getData() -> [HomeModel] { // Implementação dos dados
+    func getData() -> [ProgrammingLanguageIIModel] { // Implementação dos dados
         return [
-            HomeModel(title: "Aula 01", subtitle: "Exercício 01", date: "10/08/2016", id: HomeModelIds.First.rawValue, index: 0, file: "Exercicio01"),
-            HomeModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: HomeModelIds.Second.rawValue, index: 1, file: "Exercicio02")
+            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 01", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.First.rawValue, index: 0, file: "Exercicio01"),
+            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.Second.rawValue, index: 1, file: "Exercicio02")
         ]
     }
     
-    func convertModelToDictinary(model: HomeModel) -> Dictionary<String,AnyObject>? {
+    func convertModelToDictinary(model: ProgrammingLanguageIIModel) -> Dictionary<String,AnyObject>? {
         
         var result = Dictionary<String,AnyObject>()
         
         if let title = model.title {
-            result[HomeAttributes.Title.rawValue] = title as AnyObject
+            result[ProgrammingLanguageIIAttributes.Title.rawValue] = title as AnyObject
         }
         if let subtitle = model.subtitle {
-            result[HomeAttributes.Subtitle.rawValue] = subtitle as AnyObject
+            result[ProgrammingLanguageIIAttributes.Subtitle.rawValue] = subtitle as AnyObject
         }
         if let date = model.date {
-            result[HomeAttributes.Date.rawValue] = date as AnyObject
+            result[ProgrammingLanguageIIAttributes.Date.rawValue] = date as AnyObject
         }
         if let id = model.id {
-            result[HomeAttributes.Id.rawValue] = id as AnyObject
+            result[ProgrammingLanguageIIAttributes.Id.rawValue] = id as AnyObject
         }
         if let index = model.index {
-            result[HomeAttributes.Index.rawValue] = index as AnyObject
+            result[ProgrammingLanguageIIAttributes.Index.rawValue] = index as AnyObject
         }
         if let file = model.file {
-            result[HomeAttributes.File.rawValue] = file as AnyObject
+            result[ProgrammingLanguageIIAttributes.File.rawValue] = file as AnyObject
         }
         
         if model.title == nil || model.title == "" {
@@ -84,26 +84,26 @@ extension HomeModel {
         return result
     }
     
-    func convertDictinaryToModel(dictionary: Dictionary<String,AnyObject>) -> HomeModel? {
+    func convertDictinaryToModel(dictionary: Dictionary<String,AnyObject>) -> ProgrammingLanguageIIModel? {
         
-        let result = HomeModel()
+        let result = ProgrammingLanguageIIModel()
         
-        if let title = dictionary[HomeAttributes.Title.rawValue] as? String {
+        if let title = dictionary[ProgrammingLanguageIIAttributes.Title.rawValue] as? String {
             result.title = title
         }
-        if let subtitle = dictionary[HomeAttributes.Subtitle.rawValue] as? String {
+        if let subtitle = dictionary[ProgrammingLanguageIIAttributes.Subtitle.rawValue] as? String {
             result.subtitle = subtitle
         }
-        if let date = dictionary[HomeAttributes.Date.rawValue] as? String {
+        if let date = dictionary[ProgrammingLanguageIIAttributes.Date.rawValue] as? String {
             result.date = date
         }
-        if let id = dictionary[HomeAttributes.Id.rawValue] as? String {
+        if let id = dictionary[ProgrammingLanguageIIAttributes.Id.rawValue] as? String {
             result.id = id
         }
-        if let index = dictionary[HomeAttributes.Index.rawValue] as? Int {
+        if let index = dictionary[ProgrammingLanguageIIAttributes.Index.rawValue] as? Int {
             result.index = index
         }
-        if let file = dictionary[HomeAttributes.File.rawValue] as? String {
+        if let file = dictionary[ProgrammingLanguageIIAttributes.File.rawValue] as? String {
             result.file = file
         }
         
@@ -114,7 +114,7 @@ extension HomeModel {
         return result
     }
     
-    func convertModelArrayToDictionaryArray(array: [HomeModel]?) -> [Dictionary<String,AnyObject>]? {
+    func convertModelArrayToDictionaryArray(array: [ProgrammingLanguageIIModel]?) -> [Dictionary<String,AnyObject>]? {
         
         var result = [Dictionary<String,AnyObject>]()
         
@@ -129,9 +129,9 @@ extension HomeModel {
         return result
     }
     
-    func convertDictionaryArrayToModelArray(array: [Dictionary<String,AnyObject>]?) -> [HomeModel]? {
+    func convertDictionaryArrayToModelArray(array: [Dictionary<String,AnyObject>]?) -> [ProgrammingLanguageIIModel]? {
         
-        var result = [HomeModel]()
+        var result = [ProgrammingLanguageIIModel]()
         
         if array != nil, let array = array {
             for item in array {
@@ -144,9 +144,9 @@ extension HomeModel {
         return result
     }
     
-    func formateModelDictionary(item: Dictionary<String,AnyObject>) -> Dictionary<String,[HomeModel]>? {
+    func formateModelDictionary(item: Dictionary<String,AnyObject>) -> Dictionary<String,[ProgrammingLanguageIIModel]>? {
         
-        var result = Dictionary<String,[HomeModel]>()
+        var result = Dictionary<String,[ProgrammingLanguageIIModel]>()
         
         if item.count > 0 {
             

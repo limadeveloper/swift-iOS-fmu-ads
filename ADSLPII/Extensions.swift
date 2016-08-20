@@ -530,15 +530,15 @@ extension UILabel {
 
 extension UIStoryboard {
     
-    static func startWithViewControllerWithWindow(named: String, window: UIWindow?) {
-        let storyboard = UIStoryboard(name: Storyboard.Main.rawValue, bundle: Bundle.main)
-        let vc = storyboard.instantiateViewController(withIdentifier: named)
+    static func startWith(storyboardName: StoryboardName, controllerName: ControllerIdentifier, window: UIWindow?) {
+        let storyboard = UIStoryboard(name: storyboardName.rawValue, bundle: Bundle.main)
+        let vc = storyboard.instantiateViewController(withIdentifier: controllerName.rawValue)
         window?.rootViewController = vc
     }
     
-    static func startViewController(named: String, target: AnyObject) {
-        let storyboard = UIStoryboard(name: Storyboard.Main.rawValue, bundle: Bundle.main)
-        let vc = storyboard.instantiateViewController(withIdentifier: named)
+    static func startWith(storyboardName: StoryboardName, controllerName: ControllerIdentifier, target: AnyObject) {
+        let storyboard = UIStoryboard(name: storyboardName.rawValue, bundle: Bundle.main)
+        let vc = storyboard.instantiateViewController(withIdentifier: controllerName.rawValue)
         target.present(vc, animated: true, completion: nil)
     }
     
@@ -596,30 +596,30 @@ extension UIAlertController {
 
 extension UserDefaults {
 
-    static func saveObject(object: AnyObject, key: String) {
-        UserDefaults.standard.set(object, forKey: key)
+    static func saveObject(object: AnyObject, key: KeyData) {
+        UserDefaults.standard.set(object, forKey: key.rawValue)
         UserDefaults.standard.synchronize()
     }
     
-    static func saveBoolValue(status: Bool, key: String) {
-        UserDefaults.standard.set(status, forKey: key)
+    static func saveBoolValue(status: Bool, key: KeyData) {
+        UserDefaults.standard.set(status, forKey: key.rawValue)
         UserDefaults.standard.synchronize()
     }
     
-    static func getObject(forKey: String) -> AnyObject? {
-        if let object = UserDefaults.standard.object(forKey: forKey) {
+    static func getObject(forKey: KeyData) -> AnyObject? {
+        if let object = UserDefaults.standard.object(forKey: forKey.rawValue) {
             return object as AnyObject
         }else {
             return nil
         }
     }
     
-    static func getBoolValue(forKey: String) -> Bool? {
-        return UserDefaults.standard.bool(forKey: forKey)
+    static func getBoolValue(forKey: KeyData) -> Bool? {
+        return UserDefaults.standard.bool(forKey: forKey.rawValue)
     }
     
-    static func removeObject(forKey: String) {
-        UserDefaults.standard.removeObject(forKey: forKey)
+    static func deleteObject(forKey: KeyData) {
+        UserDefaults.standard.removeObject(forKey: forKey.rawValue)
         UserDefaults.standard.synchronize()
     }
     

@@ -17,12 +17,12 @@ enum ButtonTitle: String {
     case Order = "Ordenar"
 }
 
-enum Storyboard: String {
-    case Main = "Main"
+enum StoryboardName: String {
+    case ProgrammingLanguageII = "ProgrammingLanguageII"
 }
 
 enum NavigationName: String {
-    case Home = "Linguagem de Programação II"
+    case ProgrammingLanguageII = "Linguagem de Programação II"
 }
 
 enum Segue: String {
@@ -37,9 +37,23 @@ enum Message: String {
     case OrderedNumbers = "Números Ordenados"
     case Result = "Resultado"
     case EnterWithNumber = "Entre com os números"
+    case FileNoFound = "Arquivo não encontrado"
+    case Error = "Erro"
+    case Message = ""
 }
 
 enum Title: String {
     case First = "Ordena Valores"
     case Second = "Calcula Média"
+    case WebFile = "Arquivo"
+}
+
+enum ControllerIdentifier: String {
+    case FileWebViewController = "FileWebViewController"
+    case ProgrammingLanguageII = "ProgrammingLanguageII"
+}
+
+enum KeyData: String {
+    case File = "keyFile"
+    case Title = "keyTitle"
 }

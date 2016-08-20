@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  ProgrammingLanguageII.swift
 //  ADSLPII
 //
 //  Created by John Lima on 13/08/16.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Properties
     @IBOutlet weak var tableView: UITableView!
     
     private var tableDataSections = [String]()
-    private var tableDataRows = Dictionary<String,[HomeModel]>()
+    private var tableDataRows = Dictionary<String,[ProgrammingLanguageIIModel]>()
     private let cellIdentifier = "cell"
     private let cellHeader = "header"
     private let headerHight: CGFloat = 30
-    private let homeModel = HomeModel()
+    private let programmingLanguageIIModel = ProgrammingLanguageIIModel()
     
     // MARK: View LifeCycle
     override func viewDidLoad() {
@@ -31,7 +31,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Actions
     private func updateUI() {
         
-        self.title = NSLocalizedString(NavigationName.Home.rawValue, comment: "")
+        self.title = NSLocalizedString(NavigationName.ProgrammingLanguageII.rawValue, comment: "")
         
         let background = UIView(frame: .zero)
         self.tableView.tableFooterView = background
@@ -43,16 +43,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private func getData() {
         
-        let data = self.homeModel.getData()
+        let data = self.programmingLanguageIIModel.getData()
         
-        if let dictionaryArray = self.homeModel.convertModelArrayToDictionaryArray(array: data) {
+        if let dictionaryArray = self.programmingLanguageIIModel.convertModelArrayToDictionaryArray(array: data) {
             
-            let sectionsAndRows = Requests.formateDataFromArray(data: dictionaryArray, sectionKey: HomeAttributes.Title.rawValue, idKey: HomeAttributes.Id.rawValue)
+            let sectionsAndRows = Requests.formateDataFromArray(data: dictionaryArray, sectionKey: ProgrammingLanguageIIAttributes.Title.rawValue, idKey: ProgrammingLanguageIIAttributes.Id.rawValue)
             
             if
                 let sections = sectionsAndRows.sections,
                 let rows = sectionsAndRows.rows,
-                let formatedRows = self.homeModel.formateModelDictionary(item: rows) {
+                let formatedRows = self.programmingLanguageIIModel.formateModelDictionary(item: rows) {
                 
                 self.tableDataSections = sections
                 self.tableDataRows = formatedRows
@@ -97,6 +97,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.textLabel?.text = items?[indexPath.row].subtitle
         cell.detailTextLabel?.text = items?[indexPath.row].date
         
+        cell.textLabel?.textColor = UIColor(hexString: Colors.Default.rawValue)
+        
         return cell
     }
     
@@ -109,8 +111,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let id = item?.id {
         
             switch id {
-            case HomeModelIds.First.rawValue: self.performSegue(withIdentifier: Segue.First.rawValue, sender: item)
-            case HomeModelIds.Second.rawValue: self.performSegue(withIdentifier: Segue.Second.rawValue, sender: item)
+            case ProgrammingLanguageIIModelIds.First.rawValue: self.performSegue(withIdentifier: Segue.First.rawValue, sender: item)
+            case ProgrammingLanguageIIModelIds.Second.rawValue: self.performSegue(withIdentifier: Segue.Second.rawValue, sender: item)
             default:
                 break
             }
@@ -126,7 +128,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             firstController.identifier = identifier
             
-            if let modelData = sender as? HomeModel {
+            if let modelData = sender as? ProgrammingLanguageIIModel {
                 firstController.modelData = modelData
             }
         }

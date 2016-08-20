@@ -22,7 +22,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     private var buttonFile = UIBarButtonItem()
     
     var identifier: String?
-    var modelData: HomeModel!
+    var modelData: ProgrammingLanguageIIModel!
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -31,9 +31,17 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.getData()
         self.updateUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.view.layoutIfNeeded()
+    }
 
     // MARK: - Actions
     private func updateUI() {
+        
+        self.isNavButton(show: true)
         
         let defaultTitleMessage = Message.EnterWithNumber.rawValue
         
@@ -71,12 +79,12 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             let messageOrderedNumbers = "\(Message.OrderedNumbers.rawValue): \n\(self.numbers)"
             let message = "\(messageSelectedNumbers)\n\n\(messageOrderedNumbers)"
             
-            let ok = UIAlertAction(title: ButtonTitle.Ok.rawValue, style: .default, handler: nil)
+            let ok = UIAlertAction(title: ButtonTitle.Ok.rawValue, style: .destructive, handler: nil)
             DispatchQueue.main.async { [weak self] in
                 UIAlertController.createAlert(title: Message.Result.rawValue, message: message, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
             }
             
-            self.isNavButton(show: true)
+            self.numbers = [Int]()
         }
         
         self.collectionView.reloadData()
@@ -84,12 +92,23 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     private func getData() {
         
-        let count = 10
+        var count = Int()
+        
+        if let id = self.modelData.id {
+            switch id {
+            case ProgrammingLanguageIIModelIds.First.rawValue, ProgrammingLanguageIIModelIds.Second.rawValue:
+                count = 10
+            default:
+                break
+            }
+        }
         
         self.collectionData = [String]()
         
-        for i in 0 ..< count {
-            self.collectionData.append("\(i+1)")
+        if count > 0 {
+            for i in 0 ..< count {
+                self.collectionData.append("\(i+1)")
+            }
         }
     }
     
@@ -101,11 +120,32 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     @objc private func showFile() {
-        print("Funfou!!!")
         
-        if let file = modelData.file {
-            print("file: \(file)")
+        if let file = modelData.file, let title = modelData.title {
+            
+            let file = file as AnyObject
+            let title = title as AnyObject
+            
+            UserDefaults.saveObject(object: file, key: .File)
+            UserDefaults.saveObject(object: title, key: .Title)
+            
+            UIStoryboard.startWith(storyboardName: .ProgrammingLanguageII, controllerName: .FileWebViewController, target: self)
         }
+    }
+    
+    private func isRow(selected: Bool, label: UILabel) {
+        
+        if selected {
+            UIView.animate(withDuration: 3) {
+                label.layer.borderWidth = 5
+            }
+        }else {
+            UIView.animate(withDuration: 3) {
+                label.layer.borderWidth = 1
+            }
+        }
+        
+        self.view.layoutIfNeeded()
     }
     
     // MARK: - UICollectionView DataSource
@@ -133,10 +173,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     // MARK: - UICollectionView Delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("index: \(indexPath.row)")
-        
         let cell = collectionView.cellForItem(at: indexPath)
         let label = cell?.viewWithTag(1) as! UILabel
+        
+        self.isRow(selected: true, label: label)
         
         if self.numbers.count < 10 && label.text != "" {
             self.numbers.append(Int(label.text!)!)
@@ -144,7 +184,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             self.done = true
             
-            let ok = UIAlertAction(title: ButtonTitle.Order.rawValue, style: .default) { [weak self] (action) in
+            let ok = UIAlertAction(title: ButtonTitle.Order.rawValue, style: .destructive) { [weak self] (action) in
                 self?.updateUI()
             }
             
@@ -155,6 +195,14 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             }
             
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        let label = cell?.viewWithTag(1) as! UILabel
+        
+        self.isRow(selected: false, label: label)
     }
 
 }
