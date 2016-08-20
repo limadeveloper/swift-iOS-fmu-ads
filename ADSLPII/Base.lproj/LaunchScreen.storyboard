@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11191" systemVersion="16A286a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,31 +28,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Linguagem de Programação II" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCX-d5-TX5">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="f63-ti-LD4"/>
-                                    <constraint firstAttribute="width" constant="228" id="gzS-Wy-wlw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Análise e Desenvolvimento de Sistemas" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTi-VR-X5l">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANÁLISE E DESENVOLVIMENTO DE SISTEMAS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="LTi-VR-X5l">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="303" id="UR5-52-7hV"/>
                                     <constraint firstAttribute="height" constant="21" id="n4D-7e-8HU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3º Semestre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syk-kI-a6V">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="96" id="1ey-Vn-CQG"/>
-                                    <constraint firstAttribute="height" constant="21" id="bPP-xg-fQT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="São Paulo, 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dy4-2I-20v">
@@ -66,13 +48,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="syk-kI-a6V" firstAttribute="top" secondItem="yCX-d5-TX5" secondAttribute="bottom" constant="8" id="288-GE-wfj"/>
-                            <constraint firstItem="syk-kI-a6V" firstAttribute="centerX" secondItem="yCX-d5-TX5" secondAttribute="centerX" id="7B4-Cw-rhb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dy4-2I-20v" secondAttribute="trailing" id="9MM-Wt-Fsd"/>
-                            <constraint firstItem="yCX-d5-TX5" firstAttribute="centerX" secondItem="LTi-VR-X5l" secondAttribute="centerX" id="C8O-Gy-b5E"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="dy4-2I-20v" secondAttribute="bottom" constant="20" id="Qob-uX-M2h"/>
                             <constraint firstItem="LTi-VR-X5l" firstAttribute="centerX" secondItem="99b-Gs-PhM" secondAttribute="centerX" id="ahX-14-knc"/>
-                            <constraint firstItem="yCX-d5-TX5" firstAttribute="top" secondItem="LTi-VR-X5l" secondAttribute="bottom" constant="8" id="ivT-5A-KhZ"/>
                             <constraint firstItem="LTi-VR-X5l" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-76.5" id="l1J-z3-Itj"/>
                             <constraint firstAttribute="leadingMargin" secondItem="dy4-2I-20v" secondAttribute="leading" id="oya-yv-0uC"/>
                             <constraint firstItem="99b-Gs-PhM" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="8" id="yGN-jF-kMb"/>

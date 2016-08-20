@@ -36,6 +36,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let background = UIView(frame: .zero)
         self.tableView.tableFooterView = background
         self.tableView.backgroundColor = UIColor.white
+        
+        let button = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = button
     }
     
     private func getData() {
@@ -102,11 +105,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.deselectRow(at: indexPath, animated: true)
         
         let items = self.tableDataRows[self.tableDataSections[indexPath.section]]
-        if let index = items?[indexPath.row].index {
+        let item = items?[indexPath.row]
+        if let id = item?.id {
         
-            switch index {
-            case 0: self.performSegue(withIdentifier: Segue.OrderNumbers.rawValue, sender: nil)
-            case 1: self.performSegue(withIdentifier: Segue.Average.rawValue, sender: nil)
+            switch id {
+            case HomeModelIds.First.rawValue: self.performSegue(withIdentifier: Segue.First.rawValue, sender: item)
+            case HomeModelIds.Second.rawValue: self.performSegue(withIdentifier: Segue.Second.rawValue, sender: item)
             default:
                 break
             }
@@ -114,5 +118,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            
+            let firstController = segue.destination as! FirstViewController
+            
+            firstController.identifier = identifier
+            
+            if let modelData = sender as? HomeModel {
+                firstController.modelData = modelData
+            }
+        }
+    }
 }
 

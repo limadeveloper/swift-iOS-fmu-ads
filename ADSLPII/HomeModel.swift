@@ -14,6 +14,12 @@ enum HomeAttributes: String {
     case Date = "date"
     case Id = "id"
     case Index = "index"
+    case File = "file"
+}
+
+enum HomeModelIds: String {
+    case First = "010110082016"
+    case Second = "010210082016"
 }
 
 class HomeModel {
@@ -23,26 +29,28 @@ class HomeModel {
     var date: String?
     var id: String?
     var index: Int?
+    var file: String?
     
     init () {
     
     }
     
-    init(title: String, subtitle: String, date: String, id: String, index: Int) {
+    init(title: String, subtitle: String, date: String, id: String, index: Int, file: String) {
         self.title = title
         self.subtitle = subtitle
         self.date = date
         self.id = id
         self.index = index
+        self.file = file
     }
 }
 
 extension HomeModel {
     
-    func getData() -> [HomeModel] {
+    func getData() -> [HomeModel] { // Implementação dos dados
         return [
-            HomeModel(title: "Aula 01", subtitle: "Exercício 01", date: "10/08/2016", id: "010110082016", index: 0),
-            HomeModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: "010210082016", index: 1)
+            HomeModel(title: "Aula 01", subtitle: "Exercício 01", date: "10/08/2016", id: HomeModelIds.First.rawValue, index: 0, file: "Exercicio01"),
+            HomeModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: HomeModelIds.Second.rawValue, index: 1, file: "Exercicio02")
         ]
     }
     
@@ -64,6 +72,9 @@ extension HomeModel {
         }
         if let index = model.index {
             result[HomeAttributes.Index.rawValue] = index as AnyObject
+        }
+        if let file = model.file {
+            result[HomeAttributes.File.rawValue] = file as AnyObject
         }
         
         if model.title == nil || model.title == "" {
@@ -91,6 +102,9 @@ extension HomeModel {
         }
         if let index = dictionary[HomeAttributes.Index.rawValue] as? Int {
             result.index = index
+        }
+        if let file = dictionary[HomeAttributes.File.rawValue] as? String {
+            result.file = file
         }
         
         if result.title == nil || result.title == "" {

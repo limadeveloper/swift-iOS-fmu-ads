@@ -26,13 +26,20 @@ enum NavigationName: String {
 }
 
 enum Segue: String {
-    case OrderNumbers = "OrderNumbers"
-    case Average = "Average"
+    case First = "first"
+    case Second = "second"
 }
 
 enum Message: String {
     case Done = "Pronto"
-    case SelectedNumbers = "Você selecionou os seguintes números:"
-    case ChooseNumbers = "Números Escolhidos"
-    case OrderNumbers = "Números Ordenados"
+    case YouSelectedThisNumbers = "Você selecionou os seguintes números:"
+    case SelectedNumbers = "Números Selecionados"
+    case OrderedNumbers = "Números Ordenados"
+    case Result = "Resultado"
+    case EnterWithNumber = "Entre com os números"
+}
+
+enum Title: String {
+    case First = "Ordena Valores"
+    case Second = "Calcula Média"
 }

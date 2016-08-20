@@ -8,18 +8,21 @@
 
 import UIKit
 
-class OrderNumbersViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class FirstViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // MARK: - Properties
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var labelNumbers: UILabel!
-    @IBOutlet weak var labelOrderNumbers: UILabel!
     
     private var collectionData = [String]()
     private var numbers = [Int]()
     private var orderNumbers = [String]()
     private let cellIdentifier = "cell"
     private let numberOfSections = 1
+    private var done: Bool = false
+    private var buttonFile = UIBarButtonItem()
+    
+    var identifier: String?
+    var modelData: HomeModel!
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -31,13 +34,25 @@ class OrderNumbersViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - Actions
     private func updateUI() {
-    
-        self.labelOrderNumbers.textColor = UIColor(hexString: Colors.Default.rawValue)
-        self.labelNumbers.textColor = UIColor.darkGray
+        
+        let defaultTitleMessage = Message.EnterWithNumber.rawValue
+        
+        if let identifier = self.identifier {
+            switch identifier {
+            case Segue.First.rawValue:
+                self.title = Title.First.rawValue
+            case Segue.Second.rawValue:
+                self.title = Title.Second.rawValue
+            default:
+                self.title = defaultTitleMessage
+            }
+        }else {
+            self.title = defaultTitleMessage
+        }
         
         if self.numbers.count > 0 {
             
-            self.labelNumbers.text = "\(Message.ChooseNumbers.rawValue): \n\(self.numbers)"
+            let messageSelectedNumbers = "\(Message.SelectedNumbers.rawValue): \n\(self.numbers)"
             
             var number = Int()
             
@@ -53,7 +68,15 @@ class OrderNumbersViewController: UIViewController, UICollectionViewDataSource, 
             
             print("Order: \(self.numbers)")
             
-            self.labelOrderNumbers.text = "\(Message.OrderNumbers.rawValue): \n\(self.numbers)"
+            let messageOrderedNumbers = "\(Message.OrderedNumbers.rawValue): \n\(self.numbers)"
+            let message = "\(messageSelectedNumbers)\n\n\(messageOrderedNumbers)"
+            
+            let ok = UIAlertAction(title: ButtonTitle.Ok.rawValue, style: .default, handler: nil)
+            DispatchQueue.main.async { [weak self] in
+                UIAlertController.createAlert(title: Message.Result.rawValue, message: message, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
+            }
+            
+            self.isNavButton(show: true)
         }
         
         self.collectionView.reloadData()
@@ -67,6 +90,21 @@ class OrderNumbersViewController: UIViewController, UICollectionViewDataSource, 
         
         for i in 0 ..< count {
             self.collectionData.append("\(i+1)")
+        }
+    }
+    
+    private func isNavButton(show: Bool) {
+        self.buttonFile = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(self.showFile))
+        if show {
+            self.navigationItem.rightBarButtonItem = buttonFile
+        }
+    }
+    
+    @objc private func showFile() {
+        print("Funfou!!!")
+        
+        if let file = modelData.file {
+            print("file: \(file)")
         }
     }
     
@@ -104,15 +142,18 @@ class OrderNumbersViewController: UIViewController, UICollectionViewDataSource, 
             self.numbers.append(Int(label.text!)!)
         }else {
             
-            let ok = UIAlertAction(title: ButtonTitle.Order.rawValue, style: .default, handler: { [weak self] (action) in
+            self.done = true
+            
+            let ok = UIAlertAction(title: ButtonTitle.Order.rawValue, style: .default) { [weak self] (action) in
                 self?.updateUI()
-            })
+            }
             
-            let alert = UIAlertController(title: Message.Done.rawValue, message: "\(Message.SelectedNumbers.rawValue) \n\(self.numbers)", preferredStyle: .alert)
+            let message = "\(Message.YouSelectedThisNumbers.rawValue) \n\(self.numbers)"
             
-            alert.addAction(ok)
+            DispatchQueue.main.async { [weak self] in
+                UIAlertController.createAlert(title: Message.Done.rawValue, message: message, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
+            }
             
-            self.present(alert, animated: true, completion: nil)
         }
     }
 

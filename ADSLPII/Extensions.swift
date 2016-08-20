@@ -571,7 +571,7 @@ extension NSError {
 
 extension UIAlertController {
 
-    static func createAlert(title: String?, message: String?, style: UIAlertControllerStyle, actions: [UIAlertAction]?, target: AnyObject, isPopover: Bool, buttonItem: UIBarButtonItem?) {
+    static func createAlert(title: String?, message: String?, style: UIAlertControllerStyle, actions: [UIAlertAction]?, target: AnyObject?, isPopover: Bool, buttonItem: UIBarButtonItem?) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         
@@ -589,7 +589,7 @@ extension UIAlertController {
             popover.backgroundColor = UIColor.white
         }
         
-        target.present(alert, animated: true, completion: nil)
+        target?.present(alert, animated: true, completion: nil)
     }
     
 }
