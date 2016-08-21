@@ -71,4 +71,26 @@ class Requests {
         return result
     }
     
+    class func getNavigationTitle(identifier: String?) -> String {
+        
+        var result = String()
+        
+        let defaultTitleMessage = Message.EnterWithNumber.rawValue
+        
+        if let identifier = identifier {
+            switch identifier {
+            case Segue.First.rawValue:
+                result = Title.First.rawValue
+            case Segue.Second.rawValue:
+                result = Title.Second.rawValue
+            default:
+                result = defaultTitleMessage
+            }
+        }else {
+            result = defaultTitleMessage
+        }
+        
+        return result
+    }
+    
 }

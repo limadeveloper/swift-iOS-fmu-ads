@@ -19,6 +19,7 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
     private let cellHeader = "header"
     private let headerHight: CGFloat = 30
     private let programmingLanguageIIModel = ProgrammingLanguageIIModel()
+    private var pdfDataFiles = [AnyObject]()
     
     // MARK: View LifeCycle
     override func viewDidLoad() {
@@ -39,6 +40,11 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
         
         let button = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = button
+        
+        if self.pdfDataFiles.count > 0 {
+            let fileButton = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(self.showPdfDataFiles))
+            self.navigationItem.rightBarButtonItem = fileButton
+        }
     }
     
     private func getData() {
@@ -61,6 +67,10 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    @objc private func showPdfDataFiles() {
+        print("has no files")
+    }
+    
     // MARK: TableView DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableDataSections.count
@@ -76,6 +86,10 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
         
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellHeader)
         let label = cell?.viewWithTag(2) as! UILabel
+        
+        cell?.backgroundColor = UIColor(hexString: Colors.Default.rawValue)?.withAlphaComponent(0.9)
+        cell?.backgroundView?.backgroundColor = cell?.backgroundColor
+        label.textColor = UIColor.white
         
         if self.tableDataSections.count > 0 {
             label.text = self.tableDataSections[section]
@@ -113,6 +127,7 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
             switch id {
             case ProgrammingLanguageIIModelIds.First.rawValue: self.performSegue(withIdentifier: Segue.First.rawValue, sender: item)
             case ProgrammingLanguageIIModelIds.Second.rawValue: self.performSegue(withIdentifier: Segue.Second.rawValue, sender: item)
+            case ProgrammingLanguageIIModelIds.Third.rawValue: self.performSegue(withIdentifier: Segue.Third.rawValue, sender: item)
             default:
                 break
             }

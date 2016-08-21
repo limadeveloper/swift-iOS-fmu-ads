@@ -8,18 +8,18 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class FirstViewController: UIViewController, CustomCollectionViewDelegate {
 
     // MARK: - Properties
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var infoTextView: UITextView!
     
     private var collectionData = [String]()
     private var numbers = [Int]()
     private var orderNumbers = [String]()
-    private let cellIdentifier = "cell"
-    private let numberOfSections = 1
     private var done: Bool = false
     private var buttonFile = UIBarButtonItem()
+    private var customCollection = CustomCollectionView()
     
     var identifier: String?
     var modelData: ProgrammingLanguageIIModel!
@@ -43,73 +43,35 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         self.isNavButton(show: true)
         
-        let defaultTitleMessage = Message.EnterWithNumber.rawValue
-        
-        if let identifier = self.identifier {
-            switch identifier {
-            case Segue.First.rawValue:
-                self.title = Title.First.rawValue
-            case Segue.Second.rawValue:
-                self.title = Title.Second.rawValue
-            default:
-                self.title = defaultTitleMessage
-            }
-        }else {
-            self.title = defaultTitleMessage
-        }
+        self.title = Requests.getNavigationTitle(identifier: self.identifier)
         
         if self.numbers.count > 0 {
-            
-            let messageSelectedNumbers = "\(Message.SelectedNumbers.rawValue): \n\(self.numbers)"
-            
-            var number = Int()
-            
-            for i in 0 ..< self.numbers.count {
-                for j in i+1 ..< self.numbers.count {
-                    if self.numbers[i] > self.numbers[j] {
-                        number = self.numbers[i]
-                        self.numbers[i] = self.numbers[j]
-                        self.numbers[j] = number
-                    }
-                }
-            }
-            
-            print("Order: \(self.numbers)")
-            
-            let messageOrderedNumbers = "\(Message.OrderedNumbers.rawValue): \n\(self.numbers)"
-            let message = "\(messageSelectedNumbers)\n\n\(messageOrderedNumbers)"
-            
-            let ok = UIAlertAction(title: ButtonTitle.Ok.rawValue, style: .destructive, handler: nil)
-            DispatchQueue.main.async { [weak self] in
-                UIAlertController.createAlert(title: Message.Result.rawValue, message: message, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
-            }
-            
-            self.numbers = [Int]()
+            self.getResultCalculus()
         }
         
-        self.collectionView.reloadData()
+        self.customCollection.setup(data: self.collectionData as [AnyObject], type: .LPII, collectionView: self.collectionView)
+        self.customCollection.delegate = self
     }
     
     private func getData() {
         
-        var count = Int()
+        self.collectionData = [String]()
+        
+        let count = 10
+        
+        for i in 0 ..< count {
+            self.collectionData.append("\(i+1)")
+        }
         
         if let id = self.modelData.id {
             switch id {
-            case ProgrammingLanguageIIModelIds.First.rawValue, ProgrammingLanguageIIModelIds.Second.rawValue:
-                count = 10
+            case ProgrammingLanguageIIModelIds.Second.rawValue:
+                self.collectionData.append("\(0)")
             default:
                 break
             }
         }
         
-        self.collectionData = [String]()
-        
-        if count > 0 {
-            for i in 0 ..< count {
-                self.collectionData.append("\(i+1)")
-            }
-        }
     }
     
     private func isNavButton(show: Bool) {
@@ -148,37 +110,42 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.view.layoutIfNeeded()
     }
     
-    // MARK: - UICollectionView DataSource
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.numberOfSections
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.collectionData.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    private func getResultCalculus() {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath)
+        var result = String()
         
-        let label = cell.viewWithTag(1) as! UILabel
-        label.text = self.collectionData[indexPath.row]
-        label.textColor = UIColor(hexString: Colors.Default.rawValue)
-        label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor(hexString: Colors.Default.rawValue)?.cgColor
+        let ok = UIAlertAction(title: ButtonTitle.Ok.rawValue, style: .destructive, handler: nil)
         
-        return cell
+        if let identifier = self.identifier {
+            
+            switch identifier {
+            case Segue.First.rawValue:
+                result = Calculus.getResultOrderNumbers(numbers: self.numbers)
+            case Segue.Second.rawValue:
+                result = Calculus.getResultAverageMinorAndGreaterNumber(numbers: self.numbers)
+            default:
+                break
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                UIAlertController.createAlert(title: Message.Result.rawValue, message: result, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
+            }
+            
+            self.numbers = [Int]()
+            
+        }else {
+            DispatchQueue.main.async { [weak self] in
+                UIAlertController.createAlert(title: Message.Error.rawValue, message: Message.CalculusError.rawValue, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
+            }
+        }
     }
     
     // MARK: - UICollectionView Delegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let cell = collectionView.cellForItem(at: indexPath)
-        let label = cell?.viewWithTag(1) as! UILabel
+    func didSelectItemAt(label: UILabel) {
         
         self.isRow(selected: true, label: label)
         
-        if self.numbers.count < 10 && label.text != "" {
+        if self.numbers.count < 10 && label.text != "" && label.text != "\(0)" {
             self.numbers.append(Int(label.text!)!)
         }else {
             
@@ -197,11 +164,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
-        let cell = collectionView.cellForItem(at: indexPath)
-        let label = cell?.viewWithTag(1) as! UILabel
-        
+    func didDeselectItemAt(label: UILabel) {
         self.isRow(selected: false, label: label)
     }
 

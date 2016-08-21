@@ -15,11 +15,14 @@ enum ProgrammingLanguageIIAttributes: String {
     case Id = "id"
     case Index = "index"
     case File = "file"
+    case PdfName = "PdfName"
+    case PdfFileName = "PdfFileName"
 }
 
-enum ProgrammingLanguageIIModelIds: String {
+enum ProgrammingLanguageIIModelIds: String { // title + subtitle + date (just int value)
     case First = "010110082016"
     case Second = "010210082016"
+    case Third = "020117082016"
 }
 
 class ProgrammingLanguageIIModel {
@@ -30,6 +33,10 @@ class ProgrammingLanguageIIModel {
     var id: String?
     var index: Int?
     var file: String?
+    
+    // PDF Files
+    var pdfName: String?
+    var pdfFileName: String?
     
     init () {
     
@@ -43,17 +50,29 @@ class ProgrammingLanguageIIModel {
         self.index = index
         self.file = file
     }
+    
+    init(pdfName: String, pdfFileName: String) {
+        self.pdfName = pdfName
+        self.pdfFileName = pdfFileName
+    }
 }
 
 extension ProgrammingLanguageIIModel {
     
+    // MARK: - Data
     func getData() -> [ProgrammingLanguageIIModel] { // Implementação dos dados
         return [
             ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 01", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.First.rawValue, index: 0, file: "Exercicio01"),
-            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.Second.rawValue, index: 1, file: "Exercicio02")
+            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.Second.rawValue, index: 1, file: "Exercicio02"),
+            ProgrammingLanguageIIModel(title: "Aula 02", subtitle: "Calculadora", date: "17/08/2016", id: ProgrammingLanguageIIModelIds.Third.rawValue, index: 2, file: "Calculadora")
         ]
     }
     
+    func getPdfDataFiles() -> [ProgrammingLanguageIIModel]? {
+        return nil
+    }
+    
+    // MARK: - Methods
     func convertModelToDictinary(model: ProgrammingLanguageIIModel) -> Dictionary<String,AnyObject>? {
         
         var result = Dictionary<String,AnyObject>()
@@ -75,6 +94,12 @@ extension ProgrammingLanguageIIModel {
         }
         if let file = model.file {
             result[ProgrammingLanguageIIAttributes.File.rawValue] = file as AnyObject
+        }
+        if let pdfName = model.pdfName {
+            result[ProgrammingLanguageIIAttributes.PdfName.rawValue] = pdfName as AnyObject
+        }
+        if let pdfFileName = model.pdfFileName {
+            result[ProgrammingLanguageIIAttributes.PdfFileName.rawValue] = pdfFileName as AnyObject
         }
         
         if model.title == nil || model.title == "" {
@@ -105,6 +130,12 @@ extension ProgrammingLanguageIIModel {
         }
         if let file = dictionary[ProgrammingLanguageIIAttributes.File.rawValue] as? String {
             result.file = file
+        }
+        if let pdfName = dictionary[ProgrammingLanguageIIAttributes.PdfName.rawValue] as? String {
+            result.pdfName = pdfName
+        }
+        if let pdfFileName = dictionary[ProgrammingLanguageIIAttributes.PdfFileName.rawValue] as? String {
+            result.pdfFileName = pdfFileName
         }
         
         if result.title == nil || result.title == "" {
@@ -149,12 +180,13 @@ extension ProgrammingLanguageIIModel {
         var result = Dictionary<String,[ProgrammingLanguageIIModel]>()
         
         if item.count > 0 {
-            
-            let key = item.keys.first!
-            let value = item[key] as! [Dictionary<String,AnyObject>]
-            
-            if let model = self.convertDictionaryArrayToModelArray(array: value) {
-                result[key] = model
+            let keys = item.keys.sorted()
+            for key in keys {
+                if
+                    let value = item[key] as? [Dictionary<String,AnyObject>],
+                    let model = self.convertDictionaryArrayToModelArray(array: value) {
+                    result[key] = model
+                }
             }
         }
         
