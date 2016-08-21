@@ -54,6 +54,24 @@ class Calculus {
         return message
     }
     
+    /**
+     * Aula 02 - Calculadora
+     */
+    class func getResultCalculatorCalculus(numbers: [Int], operatorValue: String) -> String {
+        switch operatorValue {
+        case Arrays.operatorArray[0]:
+            return "Soma: \(numbers.first!+numbers.last!)"
+        case Arrays.operatorArray[1]:
+            return "Subtração: \(numbers.first!-numbers.last!)"
+        case Arrays.operatorArray[2]:
+            return "Multiplicação: \(numbers.first!*numbers.last!)"
+        case Arrays.operatorArray[3]:
+            return "Divisão: \(numbers.first!/numbers.last!)"
+        default:
+            return "Nenhum Resultado"
+        }
+    }
+    
     class func getOrderedNumbersFrom(array: [Int]) -> [Int] {
         
         var number = Int()

@@ -83,6 +83,8 @@ class Requests {
                 result = Title.First.rawValue
             case Segue.Second.rawValue:
                 result = Title.Second.rawValue
+            case Segue.Calculator.rawValue:
+                result = Title.Calculator.rawValue
             default:
                 result = defaultTitleMessage
             }

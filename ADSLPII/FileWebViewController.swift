@@ -51,8 +51,6 @@ class FileWebViewController: UIViewController, UIWebViewDelegate {
         
         if let file = self.file {
             
-            App.isNetworkActivityIndicatorVisible = true
-            
             DispatchQueue.main.async { [weak self] in
                 
                 if let bundle = Bundle.main.path(forResource: file, ofType:"pdf") {
@@ -65,8 +63,6 @@ class FileWebViewController: UIViewController, UIWebViewDelegate {
                     }
                     UIAlertController.createAlert(title: Message.Error.rawValue, message: Message.FileNoFound.rawValue, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
                 }
-                
-                App.isNetworkActivityIndicatorVisible = false
             }
         }
     }
@@ -75,4 +71,17 @@ class FileWebViewController: UIViewController, UIWebViewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 
+    // MARK: - WebView Delegate
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        App.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        App.isNetworkActivityIndicatorVisible = false
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        App.isNetworkActivityIndicatorVisible = false
+    }
+    
 }

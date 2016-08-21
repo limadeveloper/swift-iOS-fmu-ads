@@ -29,6 +29,7 @@ enum Segue: String {
     case First = "first"
     case Second = "second"
     case Third = "third"
+    case Calculator = "calculator"
 }
 
 enum Message: String {
@@ -44,12 +45,15 @@ enum Message: String {
     case FileNoFound = "Arquivo não encontrado"
     case Error = "Erro"
     case CalculusError = "Não foi possível obter resultado"
+    case ChooseTheOperator = "Escolha o operador"
+    case ChooseTwoNumbers = "Escolha 2 números"
 }
 
 enum Title: String {
     case First = "Ordena Valores"
     case Second = "Calcula Média"
     case WebFile = "Arquivo"
+    case Calculator = "Calculadora"
 }
 
 enum ControllerIdentifier: String {
@@ -65,4 +69,8 @@ enum KeyData: String {
 enum DataType: Int {
     case LPII = 0
     case PBD = 1
+}
+
+enum Arrays {
+    static let operatorArray = ["+", "-", "*", "/"]
 }

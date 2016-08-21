@@ -127,7 +127,7 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
             switch id {
             case ProgrammingLanguageIIModelIds.First.rawValue: self.performSegue(withIdentifier: Segue.First.rawValue, sender: item)
             case ProgrammingLanguageIIModelIds.Second.rawValue: self.performSegue(withIdentifier: Segue.Second.rawValue, sender: item)
-            case ProgrammingLanguageIIModelIds.Third.rawValue: self.performSegue(withIdentifier: Segue.Third.rawValue, sender: item)
+            case ProgrammingLanguageIIModelIds.Third.rawValue: self.performSegue(withIdentifier: Segue.Calculator.rawValue, sender: item)
             default:
                 break
             }
@@ -138,13 +138,28 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
-            
-            let firstController = segue.destination as! FirstViewController
-            
-            firstController.identifier = identifier
-            
-            if let modelData = sender as? ProgrammingLanguageIIModel {
-                firstController.modelData = modelData
+            switch identifier {
+            case Segue.First.rawValue, Segue.Second.rawValue:
+                
+                let controller = segue.destination as! FirstViewController
+                
+                controller.identifier = identifier
+                
+                if let modelData = sender as? ProgrammingLanguageIIModel {
+                    controller.modelData = modelData
+                }
+            case Segue.Calculator.rawValue:
+                
+                let controller = segue.destination as! CalculatorViewController
+                
+                controller.identifier = identifier
+                
+                if let modelData = sender as? ProgrammingLanguageIIModel {
+                    controller.modelData = modelData
+                }
+                
+            default:
+                break
             }
         }
     }

@@ -25,7 +25,7 @@
 		F1D2F9B71D62ACF4007BC536 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2F9B61D62ACF4007BC536 /* FirstViewController.swift */; };
 		F1DE60CE1D68FA9300EDCBE1 /* Calculus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DE60CD1D68FA9300EDCBE1 /* Calculus.swift */; };
 		F1DE60D01D6912A400EDCBE1 /* Calculadora.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1DE60CF1D6912A400EDCBE1 /* Calculadora.pdf */; };
-		F1DE60D31D69228100EDCBE1 /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DE60D21D69228100EDCBE1 /* CustomCollectionView.swift */; };
+		F1DE60D51D69584900EDCBE1 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DE60D41D69584900EDCBE1 /* CalculatorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +49,7 @@
 		F1D2F9B61D62ACF4007BC536 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		F1DE60CD1D68FA9300EDCBE1 /* Calculus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculus.swift; sourceTree = "<group>"; };
 		F1DE60CF1D6912A400EDCBE1 /* Calculadora.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Calculadora.pdf; sourceTree = "<group>"; };
-		F1DE60D21D69228100EDCBE1 /* CustomCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
+		F1DE60D41D69584900EDCBE1 /* CalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				F1A26E671D61692700A561C5 /* CustomLabel.swift */,
-				F1DE60D21D69228100EDCBE1 /* CustomCollectionView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -199,6 +198,7 @@
 				F1A5D6901D689795001E0CFA /* FileWebViewController.swift */,
 				F1AC4EF11D5FC638003CEFE6 /* ProgrammingLanguageII.swift */,
 				F1D2F9B61D62ACF4007BC536 /* FirstViewController.swift */,
+				F1DE60D41D69584900EDCBE1 /* CalculatorViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -297,9 +297,9 @@
 				F1AC4EF21D5FC638003CEFE6 /* ProgrammingLanguageII.swift in Sources */,
 				F127503D1D6015190082E2EA /* Requests.swift in Sources */,
 				F1DE60CE1D68FA9300EDCBE1 /* Calculus.swift in Sources */,
+				F1DE60D51D69584900EDCBE1 /* CalculatorViewController.swift in Sources */,
 				F1AC4EF01D5FC638003CEFE6 /* AppDelegate.swift in Sources */,
 				F1AC4F071D5FCB4C003CEFE6 /* Constants.swift in Sources */,
-				F1DE60D31D69228100EDCBE1 /* CustomCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
