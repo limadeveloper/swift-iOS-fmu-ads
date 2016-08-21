@@ -62,9 +62,9 @@ extension ProgrammingLanguageIIModel {
     // MARK: - Data
     func getData() -> [ProgrammingLanguageIIModel] { // Implementação dos dados
         return [
-            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 01", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.First.rawValue, index: 0, file: "Exercicio01"),
-            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.Second.rawValue, index: 1, file: "Exercicio02"),
-            ProgrammingLanguageIIModel(title: "Aula 02", subtitle: "Calculadora", date: "17/08/2016", id: ProgrammingLanguageIIModelIds.Third.rawValue, index: 2, file: "Calculadora")
+            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 01", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.First.rawValue, index: 1, file: "Exercicio01"),
+            ProgrammingLanguageIIModel(title: "Aula 01", subtitle: "Exercício 02", date: "10/08/2016", id: ProgrammingLanguageIIModelIds.Second.rawValue, index: 2, file: "Exercicio02"),
+            ProgrammingLanguageIIModel(title: "Aula 02", subtitle: "Calculadora", date: "17/08/2016", id: ProgrammingLanguageIIModelIds.Third.rawValue, index: 3, file: "Calculadora")
         ]
     }
     

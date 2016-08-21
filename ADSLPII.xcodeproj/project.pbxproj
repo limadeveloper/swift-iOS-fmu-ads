@@ -22,6 +22,14 @@
 		F1AC4F051D5FCB1C003CEFE6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC4F041D5FCB1C003CEFE6 /* NavigationViewController.swift */; };
 		F1AC4F071D5FCB4C003CEFE6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC4F061D5FCB4C003CEFE6 /* Constants.swift */; };
 		F1AC4F091D5FCBAA003CEFE6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC4F081D5FCBAA003CEFE6 /* Extensions.swift */; };
+		F1B998B51D69E99F001F6042 /* DatabaseProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B998B41D69E99F001F6042 /* DatabaseProjectModel.swift */; };
+		F1B998BD1D69F107001F6042 /* Conceitos.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1B998B61D69F107001F6042 /* Conceitos.pdf */; };
+		F1B998BE1D69F107001F6042 /* Gestao.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1B998B71D69F107001F6042 /* Gestao.pdf */; };
+		F1B998BF1D69F107001F6042 /* Introducao.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1B998B81D69F107001F6042 /* Introducao.pdf */; };
+		F1B998C01D69F107001F6042 /* MER.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1B998B91D69F107001F6042 /* MER.pdf */; };
+		F1B998C11D69F107001F6042 /* Modelagem1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1B998BA1D69F107001F6042 /* Modelagem1.pdf */; };
+		F1B998C21D69F107001F6042 /* Modelagem2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1B998BB1D69F107001F6042 /* Modelagem2.pdf */; };
+		F1B998C31D69F107001F6042 /* PlanoDeEnsino.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1B998BC1D69F107001F6042 /* PlanoDeEnsino.pdf */; };
 		F1D2F9B71D62ACF4007BC536 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2F9B61D62ACF4007BC536 /* FirstViewController.swift */; };
 		F1DE60CE1D68FA9300EDCBE1 /* Calculus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DE60CD1D68FA9300EDCBE1 /* Calculus.swift */; };
 		F1DE60D01D6912A400EDCBE1 /* Calculadora.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F1DE60CF1D6912A400EDCBE1 /* Calculadora.pdf */; };
@@ -46,6 +54,14 @@
 		F1AC4F041D5FCB1C003CEFE6 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		F1AC4F061D5FCB4C003CEFE6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F1AC4F081D5FCBAA003CEFE6 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F1B998B41D69E99F001F6042 /* DatabaseProjectModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseProjectModel.swift; sourceTree = "<group>"; };
+		F1B998B61D69F107001F6042 /* Conceitos.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Conceitos.pdf; sourceTree = "<group>"; };
+		F1B998B71D69F107001F6042 /* Gestao.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Gestao.pdf; sourceTree = "<group>"; };
+		F1B998B81D69F107001F6042 /* Introducao.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Introducao.pdf; sourceTree = "<group>"; };
+		F1B998B91D69F107001F6042 /* MER.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = MER.pdf; sourceTree = "<group>"; };
+		F1B998BA1D69F107001F6042 /* Modelagem1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Modelagem1.pdf; sourceTree = "<group>"; };
+		F1B998BB1D69F107001F6042 /* Modelagem2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Modelagem2.pdf; sourceTree = "<group>"; };
+		F1B998BC1D69F107001F6042 /* PlanoDeEnsino.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PlanoDeEnsino.pdf; sourceTree = "<group>"; };
 		F1D2F9B61D62ACF4007BC536 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		F1DE60CD1D68FA9300EDCBE1 /* Calculus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculus.swift; sourceTree = "<group>"; };
 		F1DE60CF1D6912A400EDCBE1 /* Calculadora.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Calculadora.pdf; sourceTree = "<group>"; };
@@ -92,6 +108,7 @@
 		F11DC4B61D6810F7002EA38C /* ADS */ = {
 			isa = PBXGroup;
 			children = (
+				F1B998C41D69F10F001F6042 /* PBD */,
 				F11DC4B71D6810F7002EA38C /* LPII */,
 			);
 			path = ADS;
@@ -127,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				F12750391D6010830082E2EA /* ProgrammingLanguageIIModel.swift */,
+				F1B998B41D69E99F001F6042 /* DatabaseProjectModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -203,6 +221,28 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		F1B998C41D69F10F001F6042 /* PBD */ = {
+			isa = PBXGroup;
+			children = (
+				F1B998C51D69F124001F6042 /* PDF */,
+			);
+			name = PBD;
+			sourceTree = "<group>";
+		};
+		F1B998C51D69F124001F6042 /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+				F1B998B61D69F107001F6042 /* Conceitos.pdf */,
+				F1B998B71D69F107001F6042 /* Gestao.pdf */,
+				F1B998B81D69F107001F6042 /* Introducao.pdf */,
+				F1B998B91D69F107001F6042 /* MER.pdf */,
+				F1B998BA1D69F107001F6042 /* Modelagem1.pdf */,
+				F1B998BB1D69F107001F6042 /* Modelagem2.pdf */,
+				F1B998BC1D69F107001F6042 /* PlanoDeEnsino.pdf */,
+			);
+			name = PDF;
+			sourceTree = "<group>";
+		};
 		F1DE60D11D6912A800EDCBE1 /* Aula02 */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,11 +312,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1DE60D01D6912A400EDCBE1 /* Calculadora.pdf in Resources */,
+				F1B998C11D69F107001F6042 /* Modelagem1.pdf in Resources */,
+				F1B998C31D69F107001F6042 /* PlanoDeEnsino.pdf in Resources */,
 				F1AC4EFA1D5FC638003CEFE6 /* LaunchScreen.storyboard in Resources */,
+				F1B998C21D69F107001F6042 /* Modelagem2.pdf in Resources */,
 				F1AC4EF71D5FC638003CEFE6 /* Assets.xcassets in Resources */,
 				F11DC4BD1D6817C5002EA38C /* Exercicio02.pdf in Resources */,
 				F1AC4EF51D5FC638003CEFE6 /* ProgrammingLanguageII.storyboard in Resources */,
+				F1B998BE1D69F107001F6042 /* Gestao.pdf in Resources */,
+				F1B998BF1D69F107001F6042 /* Introducao.pdf in Resources */,
 				F11DC4BA1D6810F7002EA38C /* Exercicio01.pdf in Resources */,
+				F1B998BD1D69F107001F6042 /* Conceitos.pdf in Resources */,
+				F1B998C01D69F107001F6042 /* MER.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +342,7 @@
 				F1AC4F051D5FCB1C003CEFE6 /* NavigationViewController.swift in Sources */,
 				F12750381D5FCFFB0082E2EA /* Global.swift in Sources */,
 				F1AC4EF21D5FC638003CEFE6 /* ProgrammingLanguageII.swift in Sources */,
+				F1B998B51D69E99F001F6042 /* DatabaseProjectModel.swift in Sources */,
 				F127503D1D6015190082E2EA /* Requests.swift in Sources */,
 				F1DE60CE1D68FA9300EDCBE1 /* Calculus.swift in Sources */,
 				F1DE60D51D69584900EDCBE1 /* CalculatorViewController.swift in Sources */,
