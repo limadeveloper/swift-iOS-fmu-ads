@@ -10,6 +10,7 @@ import Foundation
 
 enum Colors: String {
     case Default = "#FF0040"
+    case DefaultTranslucent = "#FF0048"
 }
 
 enum ButtonTitle: String {
@@ -18,11 +19,7 @@ enum ButtonTitle: String {
 }
 
 enum StoryboardName: String {
-    case ProgrammingLanguageII = "ProgrammingLanguageII"
-}
-
-enum NavigationName: String {
-    case ProgrammingLanguageII = "Linguagem de Programação II"
+    case Main = "Main"
 }
 
 enum Segue: String {
@@ -30,6 +27,8 @@ enum Segue: String {
     case Second = "second"
     case Third = "third"
     case Calculator = "calculator"
+    case LPII = "LPII"
+    case PDFList = "PDFList"
 }
 
 enum Message: String {
@@ -47,6 +46,7 @@ enum Message: String {
     case CalculusError = "Não foi possível obter resultado"
     case ChooseTheOperator = "Escolha o operador"
     case ChooseTwoNumbers = "Escolha 2 números"
+    case List = "Lista"
 }
 
 enum Title: String {
@@ -54,6 +54,7 @@ enum Title: String {
     case Second = "Calcula Média"
     case WebFile = "Arquivo"
     case Calculator = "Calculadora"
+    case Contents = "Conteúdos"
 }
 
 enum ControllerIdentifier: String {

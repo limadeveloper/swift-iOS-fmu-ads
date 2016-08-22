@@ -1,5 +1,5 @@
 //
-//  ProgrammingLanguageII.swift
+//  ListDetailClasses.swift
 //  ADSLPII
 //
 //  Created by John Lima on 13/08/16.
@@ -8,18 +8,20 @@
 
 import UIKit
 
-class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ListDetailClasses: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Properties
     @IBOutlet weak var tableView: UITableView!
     
     private var tableDataSections = [String]()
-    private var tableDataRows = Dictionary<String,[ProgrammingLanguageIIModel]>()
+    private var tableDataRows = Dictionary<String,[DetailClassesModel]>()
     private let cellIdentifier = "cell"
     private let cellHeader = "header"
     private let headerHight: CGFloat = 30
-    private let programmingLanguageIIModel = ProgrammingLanguageIIModel()
+    private let model = DetailClassesModel()
     private var pdfDataFiles = [AnyObject]()
+    
+    var identifier: String?
     
     // MARK: View LifeCycle
     override func viewDidLoad() {
@@ -31,8 +33,6 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: Actions
     private func updateUI() {
-        
-        self.title = NSLocalizedString(NavigationName.ProgrammingLanguageII.rawValue, comment: "")
         
         let background = UIView(frame: .zero)
         self.tableView.tableFooterView = background
@@ -49,16 +49,27 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
     
     private func getData() {
         
-        let data = self.programmingLanguageIIModel.getData()
+        var data = [DetailClassesModel]()
         
-        if let dictionaryArray = self.programmingLanguageIIModel.convertModelArrayToDictionaryArray(array: data) {
+        if let identifier = self.identifier {
+            switch identifier {
+            case Segue.LPII.rawValue:
+                data = self.model.getProgrammingLanguageIIModelData()
+            default:
+                break
+            }
+        }
+        
+        self.title = data.first!.name!
+        
+        if let dictionaryArray = self.model.convertModelArrayToDictionaryArray(array: data) {
             
-            let sectionsAndRows = Requests.formateDataFromArray(data: dictionaryArray, sectionKey: ProgrammingLanguageIIAttributes.Title.rawValue, idKey: ProgrammingLanguageIIAttributes.Id.rawValue)
+            let sectionsAndRows = Requests.formateDataFromArray(data: dictionaryArray, sectionKey: DetailClassesAttributes.Title.rawValue, idKey: DetailClassesAttributes.Id.rawValue)
             
             if
                 let sections = sectionsAndRows.sections,
                 let rows = sectionsAndRows.rows,
-                let formatedRows = self.programmingLanguageIIModel.formateModelDictionary(item: rows) {
+                let formatedRows = self.model.formateModelDictionary(item: rows) {
                 
                 self.tableDataSections = sections
                 self.tableDataRows = formatedRows
@@ -87,12 +98,14 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellHeader)
         let label = cell?.viewWithTag(2) as! UILabel
         
-        cell?.backgroundColor = UIColor(hexString: Colors.Default.rawValue)?.withAlphaComponent(0.9)
+        cell?.backgroundColor = UIColor(hexString: Colors.DefaultTranslucent.rawValue)?.withAlphaComponent(0.9)
         cell?.backgroundView?.backgroundColor = cell?.backgroundColor
         label.textColor = UIColor.white
         
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        
         if self.tableDataSections.count > 0 {
-            label.text = self.tableDataSections[section]
+            label.text = self.tableDataSections[section].uppercased()
             return cell
         }
         
@@ -108,10 +121,11 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
         
         let items = self.tableDataRows[self.tableDataSections[indexPath.section]]
         
-        cell.textLabel?.text = items?[indexPath.row].subtitle
+        cell.textLabel?.text = items?[indexPath.row].subtitle?.uppercased()
         cell.detailTextLabel?.text = items?[indexPath.row].date
         
         cell.textLabel?.textColor = UIColor(hexString: Colors.Default.rawValue)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 13)
         
         return cell
     }
@@ -123,15 +137,13 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
         let items = self.tableDataRows[self.tableDataSections[indexPath.section]]
         let item = items?[indexPath.row]
         if let id = item?.id {
-        
             switch id {
-            case ProgrammingLanguageIIModelIds.First.rawValue: self.performSegue(withIdentifier: Segue.First.rawValue, sender: item)
-            case ProgrammingLanguageIIModelIds.Second.rawValue: self.performSegue(withIdentifier: Segue.Second.rawValue, sender: item)
-            case ProgrammingLanguageIIModelIds.Third.rawValue: self.performSegue(withIdentifier: Segue.Calculator.rawValue, sender: item)
+            case DetailClassesModelIds.First.rawValue: self.performSegue(withIdentifier: Segue.First.rawValue, sender: item)
+            case DetailClassesModelIds.Second.rawValue: self.performSegue(withIdentifier: Segue.Second.rawValue, sender: item)
+            case DetailClassesModelIds.Third.rawValue: self.performSegue(withIdentifier: Segue.Calculator.rawValue, sender: item)
             default:
                 break
             }
-            
         }
     }
     
@@ -139,29 +151,18 @@ class ProgrammingLanguageII: UIViewController, UITableViewDelegate, UITableViewD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Segue.First.rawValue, Segue.Second.rawValue:
-                
+            case Segue.First.rawValue, Segue.Second.rawValue, Segue.Calculator.rawValue:
+                // Order values, Average value, Calculator
                 let controller = segue.destination as! FirstViewController
-                
                 controller.identifier = identifier
-                
-                if let modelData = sender as? ProgrammingLanguageIIModel {
-                    controller.modelData = modelData
+                if let modelData = sender as? DetailClassesModel {
+                    controller.model = modelData
                 }
-            case Segue.Calculator.rawValue:
-                
-                let controller = segue.destination as! CalculatorViewController
-                
-                controller.identifier = identifier
-                
-                if let modelData = sender as? ProgrammingLanguageIIModel {
-                    controller.modelData = modelData
-                }
-                
             default:
                 break
             }
         }
     }
+    
 }
 

@@ -1,9 +1,9 @@
 //
-//  ViewController.swift
-//  OrderValues
+//  FirstViewController.swift
+//  ADSLPII
 //
 //  Created by John Lima on 13/08/16.
-//  Copyright © 2016 John Lima. All rights reserved.
+//  Copyright © 2016 limadeveloper. All rights reserved.
 //
 
 import UIKit
@@ -21,15 +21,18 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
     private var buttonFile = UIBarButtonItem()
     private let cellIdentifier = "cell"
     private let numberOfSections = 1
+    private var selectedOperator = String()
+    private let countOfNumbersInArray: Int = 10
+    private var isOperator: Bool = false
     
     var identifier: String?
-    var modelData: ProgrammingLanguageIIModel!
+    var model: DetailClassesModel!
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getData()
+        self.getData(count: self.countOfNumbersInArray)
         self.updateUI()
     }
     
@@ -46,34 +49,41 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         self.title = Requests.getNavigationTitle(identifier: self.identifier)
         
+        self.infoTextView.textColor = UIColor(hexString: Colors.Default.rawValue)
+        
+        if self.identifier != nil && self.identifier == Segue.Calculator.rawValue {
+            self.infoTextView.text = Message.ChooseTwoNumbers.rawValue
+        }
+        
         if self.numbers.count > 0 {
             self.getResultCalculus()
         }
-        
-        self.infoTextView.textColor = UIColor(hexString: Colors.Default.rawValue)
-        
-        self.collectionView.reloadData()
     }
     
-    private func getData() {
+    private func getData(count: Int) {
         
         self.collectionData = [String]()
         
-        let count = 10
+        let count = count
         
         for i in 0 ..< count {
             self.collectionData.append("\(i+1)")
         }
         
-        if let id = self.modelData.id {
-            switch id {
-            case ProgrammingLanguageIIModelIds.Second.rawValue:
+        if self.identifier != nil {
+            if self.identifier == Segue.Second.rawValue {
                 self.collectionData.append("\(0)")
-            default:
-                break
+            }else if self.identifier == Segue.Calculator.rawValue {
+                if count == self.countOfNumbersInArray {
+                    self.isOperator = false
+                }else {
+                    self.collectionData = Arrays.operatorArray
+                    self.isOperator = true
+                }
             }
         }
         
+        self.collectionView.reloadData()
     }
     
     private func isNavButton(show: Bool) {
@@ -85,7 +95,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     @objc private func showFile() {
         
-        if let file = modelData.file, let title = modelData.title {
+        if let file = model.file, let title = model.title {
             
             let file = file as AnyObject
             let title = title as AnyObject
@@ -93,7 +103,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
             UserDefaults.saveObject(object: file, key: .File)
             UserDefaults.saveObject(object: title, key: .Title)
             
-            UIStoryboard.startWith(storyboardName: .ProgrammingLanguageII, controllerName: .FileWebViewController, target: self)
+            UIStoryboard.startWith(storyboardName: .Main, controllerName: .FileWebViewController, target: self)
         }
     }
     
@@ -116,7 +126,13 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         var result = String()
         
-        let ok = UIAlertAction(title: ButtonTitle.Ok.rawValue, style: .destructive, handler: nil)
+        let ok = UIAlertAction(title: ButtonTitle.Ok.rawValue, style: .destructive) { [weak self] (action) in
+            self?.numbers = [Int]()
+            self?.selectedOperator = String()
+            self?.isOperator = false
+            self?.getData(count: self!.countOfNumbersInArray)
+            self?.updateUI()
+        }
         
         if let identifier = self.identifier {
             
@@ -125,6 +141,8 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
                 result = Calculus.getResultOrderNumbers(numbers: self.numbers)
             case Segue.Second.rawValue:
                 result = Calculus.getResultAverageMinorAndGreaterNumber(numbers: self.numbers)
+            case Segue.Calculator.rawValue:
+                result = Calculus.getResultCalculatorCalculus(numbers: self.numbers, operatorValue: self.selectedOperator)
             default:
                 break
             }
@@ -133,15 +151,21 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
                 UIAlertController.createAlert(title: Message.Result.rawValue, message: result, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
             }
             
-            self.numbers = [Int]()
+            self.infoTextView.text = result
             
         }else {
             DispatchQueue.main.async { [weak self] in
                 UIAlertController.createAlert(title: Message.Error.rawValue, message: Message.CalculusError.rawValue, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
             }
         }
-        
-        self.infoTextView.text = result
+    }
+    
+    @objc private func updateUIWithTime() {
+        self.updateUI()
+    }
+    
+    @objc private func getDataWithTime() {
+        self.getData(count: Arrays.operatorArray.count)
     }
     
     // MARK: - CollectionView DataSource
@@ -174,21 +198,33 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         self.isRow(selected: true, label: label)
         
-        if self.numbers.count < 10 && label.text != "" && label.text != "\(0)" {
-            self.numbers.append(Int(label.text!)!)
-            self.infoTextView.text = "\(Message.SelectedNumbers.rawValue): \n\(self.numbers)"
-        }else {
-            
-            self.done = true
-            
-            let ok = UIAlertAction(title: ButtonTitle.Order.rawValue, style: .destructive) { [weak self] (action) in
-                self?.updateUI()
+        if self.identifier != nil && self.identifier == Segue.Calculator.rawValue {
+            if self.isOperator {
+                self.selectedOperator = label.text!
+                self.done = true
+                Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.updateUIWithTime), userInfo: nil, repeats: false)
+            }else {
+                self.numbers.append(Int(label.text!)!)
+                if self.numbers.count == 2 && label.text != "" && label.text != "\(0)" {
+                    self.infoTextView.text = Message.ChooseTheOperator.rawValue
+                    Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.getDataWithTime), userInfo: nil, repeats: false)
+                }else {
+                    
+                }
             }
-            
-            let message = "\(Message.YouSelectedThisNumbers.rawValue) \n\(self.numbers)"
-            
-            DispatchQueue.main.async { [weak self] in
-                UIAlertController.createAlert(title: Message.Done.rawValue, message: message, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
+        }else {
+            if self.numbers.count < 10 && label.text != "" && label.text != "\(0)" {
+                self.numbers.append(Int(label.text!)!)
+                self.infoTextView.text = "\(Message.SelectedNumbers.rawValue): \n\(self.numbers)"
+            }else {
+                self.done = true
+                let ok = UIAlertAction(title: ButtonTitle.Order.rawValue, style: .destructive) { [weak self] (action) in
+                    self?.updateUI()
+                }
+                let message = "\(Message.YouSelectedThisNumbers.rawValue) \n\(self.numbers)"
+                DispatchQueue.main.async { [weak self] in
+                    UIAlertController.createAlert(title: Message.Done.rawValue, message: message, style: .alert, actions: [ok], target: self, isPopover: false, buttonItem: nil)
+                }
             }
         }
     }
